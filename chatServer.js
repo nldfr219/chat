@@ -41,6 +41,7 @@ function leave(client)
 }
 var server=net.createServer(function(socket){
     var client=new Client(socket);
+        socket.setTimeout(0);
         socket.write("Welcome to the XYZ chat server\n");
         socket.write("Login Name?\n");
         socket.on("data",function(data){
