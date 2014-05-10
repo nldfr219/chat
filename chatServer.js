@@ -135,6 +135,10 @@ var server=net.createServer(function(socket){
             }
 
             });
-        socket.on("end",function(){quit(client)});    
+        socket.on("end",function(){
+                    if(client.room!=null)
+                        leave(client);
+                    clients.remove(client);
+        });    
     });
 server.listen(9399);
