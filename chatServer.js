@@ -39,6 +39,14 @@ function leave(client)
                     }
  
 }
+function quit(client)
+{
+                    if(client.room!=null)
+                        leave(client);
+                    clients.remove(client);
+                    client.socket.write("BYE\n");
+                    client.socket.end();
+}
 var server=net.createServer(function(socket){
     var client=new Client(socket);
         socket.setTimeout(0);
@@ -78,11 +86,7 @@ var server=net.createServer(function(socket){
                 }
                 else if(command[1]=="quit")
                 {
-                    if(client.room!=null)
-                        leave(client);
-                    clients.remove(client);
-                    socket.write("BYE\n");
-                    socket.end();    
+                    quit(client);    
                 }
                 else
                 {
@@ -131,5 +135,6 @@ var server=net.createServer(function(socket){
             }
 
             });
+        socket.on("end",function(){quit(client)});    
     });
 server.listen(9399);
