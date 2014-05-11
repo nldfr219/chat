@@ -135,7 +135,7 @@ var server=net.createServer(function(socket){
             }
 
             });
-        socket.on("end",function(){
+        socket.on("close",function(){
                     if(client.room!=null)
                         leave(client);
                     clients.remove(client);
